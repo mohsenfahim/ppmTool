@@ -1,6 +1,8 @@
 package com.mohsenfahim.ppmtool.services;
 
 import com.mohsenfahim.ppmtool.domain.Project;
+import com.mohsenfahim.ppmtool.exceptions.ProjectIdException;
+import com.mohsenfahim.ppmtool.exceptions.ProjectIdException;
 import com.mohsenfahim.ppmtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,11 @@ public class ProjectService {
 
         //TODO: Logic for save and update goes here...
 
-        return projectRepository.save(project);
+        try{
+            project.setProjectIdentifier(project.getProjectIdentifier().toUpperCase());
+            return projectRepository.save(project);
+        }catch (Exception e){
+            throw new ProjectIdException("Project ID '"+project.getProjectIdentifier().toUpperCase()+"' already exists");
+        }
     }
 }
