@@ -43,4 +43,22 @@ public class ProjectController {
     }
     @GetMapping("/all")
     public Iterable<Project> getAllProjects() {return projectService.findAllProjects();}
+
+    @DeleteMapping("/{projectId}")
+    public ResponseEntity<?> deleteProject(@PathVariable String projectId){
+        projectService.deleteProjectbyIdentifier(projectId.toUpperCase());
+        return new ResponseEntity<String>("Project ID '"+projectId.toUpperCase()+"' was deleted", HttpStatus.OK);
+    }
+
+    /*
+    @PutMapping("")
+    public ResponseEntity<?> updateProject(@Valid @RequestBody Project project, BindingResult result){
+
+        ResponseEntity<?> errorMap = mapValidationReturnService.MapValidationReturnService(result);
+        if (errorMap != null) return errorMap;
+        projectService.deleteProjectbyIdentifier(project.getProjectIdentifier().toUpperCase());
+        Project project1 = projectService.saveOrUpdateProject(project);
+        return new ResponseEntity<Project>(project, HttpStatus.OK);
+    }
+    */
 }
