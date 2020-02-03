@@ -1,4 +1,4 @@
-import { GET_PROJECTS, GET_PROJECT } from "../actions/types";
+import { GET_PROJECTS, GET_PROJECT, DELETE_PROJECT } from "../actions/types";
 
 const intialState = {
   projects: [],
@@ -17,6 +17,15 @@ export default function(state = intialState, action) {
       return {
         ...state,
         project: action.payload
+      };
+
+    case DELETE_PROJECT:
+      return {
+        ...state,
+        //projects: action.payload //this line would make a GET call to backend but following filter function removes the deleted project from the list using redux
+        projects: state.projects.filter(
+          project => project.projectIdentifier !== action.payload
+        )
       };
 
     default:
