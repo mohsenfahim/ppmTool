@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import ProjectItem from "./Project/ProjectItem";
+import ProjectItem from "./Project/Projectitem";
 import CreateProjectButton from "./Project/CreateProjectButton";
 import { connect } from "react-redux";
 import { getProjects } from "../actions/projectActions";
