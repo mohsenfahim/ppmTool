@@ -1,5 +1,7 @@
 package com.mohsenfahim.ppmtool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Date;
@@ -19,6 +21,10 @@ public class ProjectTask {
     private Date dueDate;
 
     //ManytoOne with backlog
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
+    @JsonIgnore
+    private Backlog backlog;
 
     @Column(updatable = false)
     private String projectIdentifier;
@@ -70,6 +76,54 @@ public class ProjectTask {
         return update_At;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setProjectSequence(String projectSequence) {
+        this.projectSequence = projectSequence;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public void setAcceptanceCriteria(String acceptanceCriteria) {
+        this.acceptanceCriteria = acceptanceCriteria;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public void setPriority(Integer priority) {
+        this.priority = priority;
+    }
+
+    public void setDueDate(Date dueDate) {
+        this.dueDate = dueDate;
+    }
+
+    public Backlog getBacklog() {
+        return backlog;
+    }
+
+    public void setBacklog(Backlog backlog) {
+        this.backlog = backlog;
+    }
+
+    public void setProjectIdentifier(String projectIdentifier) {
+        this.projectIdentifier = projectIdentifier;
+    }
+
+    public void setCreate_At(Date create_At) {
+        this.create_At = create_At;
+    }
+
+    public void setUpdate_At(Date update_At) {
+        this.update_At = update_At;
+    }
+
     @PrePersist
     protected void OnCreate(){
         this.create_At = new Date();
@@ -94,4 +148,6 @@ public class ProjectTask {
                 ", update_At=" + update_At +
                 '}';
     }
+
+
 }
