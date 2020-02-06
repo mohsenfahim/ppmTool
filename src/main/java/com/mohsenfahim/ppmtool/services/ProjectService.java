@@ -3,7 +3,6 @@ package com.mohsenfahim.ppmtool.services;
 import com.mohsenfahim.ppmtool.domain.Backlog;
 import com.mohsenfahim.ppmtool.domain.Project;
 import com.mohsenfahim.ppmtool.exceptions.ProjectIdException;
-import com.mohsenfahim.ppmtool.exceptions.ProjectIdException;
 import com.mohsenfahim.ppmtool.repositories.BacklogRepository;
 import com.mohsenfahim.ppmtool.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
