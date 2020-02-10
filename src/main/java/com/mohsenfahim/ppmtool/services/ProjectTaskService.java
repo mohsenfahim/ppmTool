@@ -9,6 +9,7 @@ import com.mohsenfahim.ppmtool.repositories.ProjectRepository;
 import com.mohsenfahim.ppmtool.repositories.ProjectTaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Service
 public class ProjectTaskService {
@@ -69,8 +70,25 @@ public class ProjectTaskService {
 
     public ProjectTask findPTBySequence(String backlog_id, String pt_id){
 
+        // make sure the backlog exists and we are searching for the correct backlog
+        Backlog backlog = backlogRepository.findByProjectIdentifier(backlog_id);
+        if(backlog == null) {
+            throw new ProjectNotFoundException("Project with ID: '"+backlog_id+"' does not exist");
+        }
+
+        // make sure that our task exists
+        ProjectTask projectTask = projectTaskRepository.findByProjectSequence(pt_id);
+        if (projectTask == null){
+            throw new ProjectNotFoundException("Project task '"+pt_id+"' not found");
+        }
+
+        //make sure that backlog id in the project corresponds to right projeat
+
+        if (!projectTask.getProjectIdentifier().equals(backlog.getProjectIdentifier())){
+            throw new ProjectNotFoundException("Project task '"+pt_id+"' not found in Project'"+backlog_id);
+        }
         //make sure we are searching on the right backlog.
 
-        return projectTaskRepository.findByProjectSequence(pt_id);
+        return projectTask;
     }
 }
