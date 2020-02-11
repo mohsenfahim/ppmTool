@@ -21,7 +21,8 @@ public class ProjectTask {
     private Date dueDate;
 
     //ManytoOne with backlog
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+    //@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH) this cascade reloads the managed object from DB which will prevent project task to get delete.
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "backlog_id", updatable = false, nullable = false)
     @JsonIgnore
     private Backlog backlog;

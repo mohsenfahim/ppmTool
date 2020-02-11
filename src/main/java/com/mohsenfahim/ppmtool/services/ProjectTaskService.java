@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.List;
+
 @Service
 public class ProjectTaskService {
 
@@ -91,4 +93,32 @@ public class ProjectTaskService {
 
         return projectTask;
     }
+
+    public ProjectTask updateProjectTask(ProjectTask updatedTask, String block_id, String pt_id){
+
+        ProjectTask projectTask = findPTBySequence(block_id, pt_id);
+        //ProjectTask projectTask = projectTaskRepository.findByProjectSequence(updatedTask.getProjectSequence());
+
+        projectTask = updatedTask;
+
+        return projectTaskRepository.save(projectTask);
+    }
+
+    public void deletePTbyProjectSequence(String block_id, String pt_id){
+
+        //ProjectTask projectTask = projectTaskRepository.findByProjectSequence(updatedTask.getProjectSequence());
+
+        ProjectTask projectTask = findPTBySequence(block_id, pt_id);
+       // Following four line of code works for deleting and saving the backlog onto the repository. But JPA gives
+        // us a much better supported way by using cascade tag. Check Domain.ProjectTask and Domain.Project using JPA.
+        /*
+        Backlog backlog = projectTask.getBacklog();
+        List<ProjectTask> pts = backlog.getProjectTasks();
+        pts.remove(projectTask);
+        backlogRepository.save(backlog);
+        */
+
+        projectTaskRepository.delete(projectTask);
+    }
+
 }
