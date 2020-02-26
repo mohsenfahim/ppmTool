@@ -1,7 +1,6 @@
 package com.mohsenfahim.ppmtool.Validator;
 
 import com.mohsenfahim.ppmtool.domain.User;
-import com.sun.org.apache.xpath.internal.objects.XObjectFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
