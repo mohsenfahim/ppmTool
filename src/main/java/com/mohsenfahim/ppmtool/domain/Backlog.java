@@ -28,7 +28,6 @@ public class Backlog {
     private List<ProjectTask> projectTasks = new ArrayList<>();
 
     public Backlog() {
-
     }
 
     public Long getId() {

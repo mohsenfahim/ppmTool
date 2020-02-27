@@ -21,7 +21,6 @@ public class UserService {
         try{
 
             newUser.setPassword(bCryptPasswordEncoder.encode(newUser.getPassword()));
-            //TODO
             //Username has to be unique
             newUser.setUsername(newUser.getUsername());
             //Make sure that password and confirm password match
@@ -31,8 +30,6 @@ public class UserService {
         }catch (Exception e){
             throw new UsernameAlreadyExistsException("Username '"+newUser.getUsername()+"' already exists!");
         }
-
-
     }
 
 
