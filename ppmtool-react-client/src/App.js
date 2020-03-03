@@ -15,6 +15,31 @@ import UpdateProjectTask from "./components/ProjectBoard/ProjectTask/UpdateProje
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import jwt_decode from "jwt-decode";
+import setJWTToken from "./securityUtils/setJWTToken";
+import { SET_CURRENT_USER } from "./actions/types";
+import { logout } from "./actions/securityActions";
+
+// To be sure we don't lose token after refreshing pages, we need to retrieve the token from app's localstorage
+const jwtToken = localStorage.jwtToken;
+
+if (jwtToken) {
+  setJWTToken(jwtToken);
+
+  const decode_jwtToken = jwt_decode(jwtToken);
+
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decode_jwtToken
+  });
+
+  const currentTime = Date.now() / 1000;
+  if (decode_jwtToken.exp < currentTime) {
+    // handle logout
+    store.dispatch(logout());
+    window.location.href = "/";
+  }
+}
 
 function App() {
   return (
