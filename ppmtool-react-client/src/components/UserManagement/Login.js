@@ -16,6 +16,14 @@ class Login extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
+
+  // This func. checks to see if user is logged in then it won't allow user to go to Login form
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
     if (nextProps.security.validToken) {
       this.props.history.push("/dashboard");

@@ -19,6 +19,12 @@ class Register extends Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
+  //  This func. checks to see if user is logged in then it won't allow user to go to register form
+  componentDidMount() {
+    if (this.props.security.validToken) {
+      this.props.history.push("/dashboard");
+    }
+  }
   //life cycle hooks in react - readup on this subject to learn more
   componentWillReceiveProps(nextProps) {
     if (nextProps.errors) {
@@ -128,9 +134,11 @@ class Register extends Component {
 
 Register.propTypes = {
   createNewUser: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired
+  errors: PropTypes.object.isRequired,
+  security: PropTypes.object.isRequired
 };
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
+  security: state.security
 });
 export default connect(mapStateToProps, { createNewUser })(Register);

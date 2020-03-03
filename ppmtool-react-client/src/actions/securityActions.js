@@ -42,10 +42,10 @@ export const login = LoginRequest => async dispatch => {
       type: SET_CURRENT_USER,
       payload: decoded
     });
-  } catch (err) {
+  } catch (error) {
     dispatch({
       type: GET_ERRORS,
-      payload: err.response.data
+      payload: error.response.data
     });
   }
 };
