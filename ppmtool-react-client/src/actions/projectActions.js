@@ -19,11 +19,18 @@ export const createProject = (project, history) => async dispatch => {
 };
 
 export const getProjects = () => async dispatch => {
-  const res = await axios.get("http://localhost:8080/api/project/all");
-  dispatch({
-    type: GET_PROJECTS,
-    payload: res.data
-  });
+  try {
+    const res = await axios.get("/api/project/all");
+    dispatch({
+      type: GET_PROJECTS,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
 };
 
 export const getProject = (id, history) => async dispatch => {

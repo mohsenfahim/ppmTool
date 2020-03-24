@@ -39,7 +39,6 @@ export const getBacklog = backlog_id => async dispatch => {
       type: GET_ERRORS,
       payload: err.response.data
     });
-    //history.push(`/projectBoard/${backlog_id}`);
   }
 };
 
@@ -93,7 +92,5 @@ export const deleteProjectTask = (backlog_id, pt_id) => async dispatch => {
       type: DELETE_PROJECT_TASK,
       payload: pt_id
     });
-
-    //history.push(`/projectBoard/${backlog_id}`);
   }
 };

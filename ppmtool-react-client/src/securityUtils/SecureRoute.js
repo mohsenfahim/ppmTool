@@ -10,7 +10,7 @@ const SecureRoute = ({ component: Component, security, ...otherProps }) => (
       security.validToken === true ? (
         <Component {...props} />
       ) : (
-        <Redirect to="/login" />
+        <Redirect to="/logout" />
       )
     }
   />
@@ -23,4 +23,5 @@ SecureRoute.propTypes = {
 const mapStateToProps = state => ({
   security: state.security
 });
+
 export default connect(mapStateToProps)(SecureRoute);
